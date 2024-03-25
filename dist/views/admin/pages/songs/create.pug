@@ -1,0 +1,165 @@
+extends ../../layouts/default.pug
+
+block main
+  h1(class="mb-4") #{pageTitle}
+
+  form(
+      action=`/${prefixAdmin}/songs/create`
+      method="POST"
+      enctype="multipart/form-data"
+    )
+      div(class="form-group")
+        label(for="title") Tiêu đề
+        input(
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          required
+        )
+      div(class="form-group")
+        label(for="topic") Chủ đề
+        select(
+          name="topicId"
+          id="topic"
+          class="form-control"
+          required
+        )
+          option(value="" disabled selected) -- Chọn chủ đề --
+          each item in topics
+            option(value=item.id) #{item.title}
+
+      div(class="form-group")
+        label(for="singer") Ca sĩ
+        select(
+          name="singerId"
+          id="singer"
+          class="form-control"
+          required
+        )
+          option(value="" disabled selected) -- Chọn ca sĩ --
+          each item in singers
+            option(value=item.id) #{item.fullName}
+      div(
+        class="form-group"
+        upload-image
+      )
+        label(for="avatar") Ảnh
+        input(
+          type="file"
+          class="form-control-file"
+          id="avatar"
+          name="avatar"
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=""
+          class="image-preview"
+          upload-image-preview
+        )
+      div(
+        class="form-group"
+        upload-audio
+      )
+        label(for="audio") File âm thanh
+        input(
+          type="file"
+          class="form-control-file"
+          id="audio"
+          name="audio"
+          accept="audio/*"
+          upload-audio-input
+        )
+        audio(controls upload-audio-play)
+          source(src="")
+      div(class="form-group")
+        label(for="lyrics") Lời bài hát
+        textarea(
+          class="form-control"
+          id="lyrics"
+          name="lyrics"
+          rows="20"
+        ).
+          [00:16.00] Cắt đôi nỗi sầu
+          [00:18.00] Anh buông tay cắt đôi nỗi sầu
+          [00:20.00] Anh cắt đi cả bóng hình
+          [00:22.00] Anh mang theo bên mình bấy lâu
+          [00:25.00] Nỗi đau đã cạn
+          [00:26.00] Cơn mưa trong tim cũng đã tan
+          [00:28.00] Anh bán đi mọi nỗi buồn
+          [00:30.00] Để chẳng còn gì ngoài thanh thản
+          [00:32.00] Em ơi anh muốn
+          [00:35.00] Mỗi tối đến anh không phải thất tình
+          [00:37.00] Muốn quên một bóng hình
+          [00:38.00] Em để lại, trong tim
+          [00:40.00] Anh không thể đếm
+          [00:42.00] Đã có bấy nhiêu đêm phải kiếm tìm
+          [00:44.00] Kiếm thêm một lí do
+          [00:46.00] Cho cuộc tình không tên
+          [00:48.00] Anh đã thức, thức xuyên đêm
+          [00:51.00] Anh đã cố gắng để quên em
+          [00:53.00] Nhưng anh biết
+          [00:54.00] Trong con tim anh không đành
+          [00:57.00] Màn đêm xuống, muốn buông tay
+          [00:59.00] Sầu giăng kín nỗi nhớ đong đầy
+          [01:01.00] Anh đang chết dần ngày từng ngày
+          [01:03.00] Em ơi
+          [01:36.00] Nhớ em rất nhiều
+          [01:38.00] Em ơi anh nhớ em rất nhiều
+          [01:40.00] Anh nhớ hơn cả nhớ nhà
+          [01:42.00] Nhưng em đâu nhớ gì đến ta
+          [01:44.00] Lúc yêu chẳng hiểu
+          [01:46.00] Khi chia li sẽ đau rất nhiều
+          [01:48.00] Đau đến trong tận linh hồn
+          [01:50.00] Và cuộc đời một màu băng giá
+          [01:53.00] Em ơi anh muốn
+          [01:54.00] Mỗi tối đến anh không phải thất tình
+          [01:56.00] Muốn quên một bóng hình
+          [01:58.00] Em để lại, trong tim
+          [02:00.00] Anh không thể đếm
+          [02:02.00] Đã có bấy nhiêu đêm phải kiếm tìm
+          [02:04.00] Kiếm thêm một lí do
+          [02:06.00] Cho cuộc tình không tên
+          [02:09.00] Anh đã thức, thức xuyên đêm
+          [02:11.00] Anh đã cố gắng để quên em
+          [02:13.00] Nhưng anh biết
+          [02:14.00] Trong con tim anh không đành
+          [02:16.00] Màn đêm xuống, muốn buông tay
+          [02:19.00] Sầu giăng kín nỗi nhớ đong đầy
+          [02:21.00] Anh đang chết dần ngày từng ngày
+          [02:23.00] Em ơi
+      div(class="form-group")
+        label(for="desc") Mô tả
+        textarea(
+          type="text"
+          class="form-control"
+          id="desc"
+          name="description"
+          rows="5"
+          textarea-mce
+        )
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="status"
+          value="active"
+          checked
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInActive"
+          name="status"
+          value="inactive"
+        )
+        label(for="statusInActive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Tạo mới
